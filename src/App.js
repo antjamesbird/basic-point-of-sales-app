@@ -11,25 +11,22 @@ class App extends Component {
     super(props);
     this.state = {
       memory: '',
-      result: 0,
+      result: 0.00,
       total: 0,
       totals: []
     };
   }
 
   insertDecimal(num) {
-    return (num / 100).toFixed(2);
+    return (num / 100);
   }
 
   calculate(value) {
     let memory = this.state.memory;
     const updateMemory = memory += value;
     this.setState({ memory: updateMemory });
-    const num = this.insertDecimal(updateMemory);
-    const currentResult = this.state.result.toFixed(2);
-    const result = parseInt(num,10) + parseInt(currentResult, 10);
-    this.setState({ result });
-    // needed more time to figure out the calculations here, its a bit buggy
+    const getDecimal = this.insertDecimal(updateMemory);
+    this.setState({ result: getDecimal  });
   }
 
   handleClick(e) {
