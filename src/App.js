@@ -22,7 +22,6 @@ class App extends Component {
   }
 
   calculate(value) {
-    console.log('here', value);
     let memory = this.state.memory;
     const updateMemory = memory += value;
     this.setState({ memory: updateMemory });
