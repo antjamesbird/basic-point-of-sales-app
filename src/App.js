@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button } from "./styled-components/button";
 import { CalculatorWrapper, TotalsWrapper } from "./styled-components/wrapper";
-import { Item } from "./styled-components/item";
+import Item from "./components/item";
 import { keys } from "./common/keys";
 import { Result } from "./components/result";
 import "./App.css";
@@ -35,7 +35,6 @@ class App extends Component {
       const totals = this.state.totals;
       totals.push(this.state.result);
       this.setState({ totals, memory: '' });
-      console.log('change');
       this.setState({ result: 0  });
     }
 
@@ -54,8 +53,8 @@ class App extends Component {
     this.state.totals.forEach((item => {
       total += item;
     }));
-    const amounts = this.state.totals.map((item, index) => (
-      <Item key={index}>R {item}</Item>
+    const amounts = this.state.totals.map((value, index) => (
+      <Item key={index} value={value} />
     ));
     const noTotals = this.state.totals.length;
     const calculatorKeys = keys.map(({ value, type }) => (
