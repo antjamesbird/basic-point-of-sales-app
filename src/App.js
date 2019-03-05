@@ -11,7 +11,7 @@ class App extends Component {
     super(props);
     this.state = {
       memory: '',
-      result: 0.00,
+      result: 0,
       total: 0,
       totals: []
     };
@@ -22,6 +22,7 @@ class App extends Component {
   }
 
   calculate(value) {
+    console.log('here', value);
     let memory = this.state.memory;
     const updateMemory = memory += value;
     this.setState({ memory: updateMemory });
@@ -30,14 +31,23 @@ class App extends Component {
   }
 
   handleClick(e) {
-    if (e.target.classList[0] === 'icon-tick') {
-      this.state.totals.push(this.state.result);
+    const classList = e.target.classList[0];
+    if (classList === 'icon-tick') {
+      const totals = this.state.totals;
+      totals.push(this.state.result);
+      this.setState({ totals, memory: '' });
+      console.log('change');
+      this.setState({ result: 0  });
     }
-    if (e.target.classList[0] === 'icon-cross') {
+
+    if (classList === 'number') {
+      const value = e.target.value;
+      this.calculate(value);
+    }
+
+    if (classList === 'icon-cross') {
       console.log('no time to code this');
     }
-    const value = e.target.value;
-    this.calculate(value);
   }
 
   render() {
@@ -45,11 +55,10 @@ class App extends Component {
     this.state.totals.forEach((item => {
       total += item;
     }));
-    const amounts = this.state.totals.map((item) => (
-      <Item>{item.toFixed(2)}</Item>
+    const amounts = this.state.totals.map((item, index) => (
+      <Item key={index}>R {item}</Item>
     ));
     const noTotals = this.state.totals.length;
-    const result = this.state.result.toFixed(2);
     const calculatorKeys = keys.map(({ value, type }) => (
       <Button
         onClick={value => this.handleClick(value)}
@@ -63,7 +72,7 @@ class App extends Component {
     return (
       <div>
         <CalculatorWrapper>
-          <Result result={`R ${result}`} />
+          <Result result={`R ${this.state.result}`} />
           {calculatorKeys}
         </CalculatorWrapper>
         <TotalsWrapper>
@@ -73,7 +82,7 @@ class App extends Component {
             }
           </div>
           <div className="total">
-            {total.toFixed(2)}
+            R {total}
           </div>
         </TotalsWrapper>
       </div>
