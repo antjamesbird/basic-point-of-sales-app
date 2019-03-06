@@ -15,6 +15,8 @@ class App extends Component {
       total: 0,
       totals: []
     };
+
+    this.updateTotals = this.updateTotals.bind(this);
   }
 
   insertDecimal(num) {
@@ -48,13 +50,17 @@ class App extends Component {
     }
   }
 
+  updateTotals(totals) {
+    this.setState({ totals });
+  }
+
   render() {
     let total = 0;
     this.state.totals.forEach(item => {
       total += item;
     });
     const amounts = this.state.totals.map((value, index) => (
-      <Item key={index} index={index} value={value} totals={this.state.totals} />
+      <Item key={index} index={index} value={value} totals={this.state.totals} updateTotals={this.updateTotals} />
     ));
     const noTotals = this.state.totals.length;
     const calculatorKeys = keys.map(({ value, type }) => (

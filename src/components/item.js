@@ -7,8 +7,10 @@ class Item extends Component {
     }
 
     handleClick() {
-        const findTotal = this.props.totals[this.props.index];
-        console.log(findTotal);
+        const totals = this.props.totals;
+        totals.splice(this.props.index, 1);
+        this.props.updateTotals(totals);
+        console.log('findTotal', totals);
     }
 
     render() { 
