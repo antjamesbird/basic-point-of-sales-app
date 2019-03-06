@@ -17,6 +17,8 @@ class App extends Component {
     };
 
     this.updateTotals = this.updateTotals.bind(this);
+    this.calculate = this.calculate.bind(this);
+    this.insertDecimal = this.insertDecimal.bind(this);
   }
 
   insertDecimal(num) {
@@ -46,7 +48,18 @@ class App extends Component {
     }
 
     if (classList === "icon-cross") {
-      console.log("no time to code this");
+      const memory = this.state.memory.toString();
+      if (memory.length) {
+        const trimStart = memory.substr(1);
+        const convertBack = parseInt(trimStart, 10);
+        this.setState({ memory: convertBack });
+        const getDecimal = this.insertDecimal(convertBack);
+        if (trimStart.length) {
+          this.setState({ result: getDecimal });
+        } else {
+          this.setState({ result: 0, memory: "" });
+        }
+      }
     }
   }
 

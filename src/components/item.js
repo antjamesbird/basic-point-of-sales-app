@@ -10,7 +10,6 @@ class Item extends Component {
         const totals = this.props.totals;
         totals.splice(this.props.index, 1);
         this.props.updateTotals(totals);
-        console.log('findTotal', totals);
     }
 
     render() { 
