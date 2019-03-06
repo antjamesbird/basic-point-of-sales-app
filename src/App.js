@@ -10,7 +10,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      memory: '',
+      memory: "",
       result: 0,
       total: 0,
       totals: []
@@ -18,43 +18,43 @@ class App extends Component {
   }
 
   insertDecimal(num) {
-    return (num / 100);
+    return num / 100;
   }
 
   calculate(value) {
     let memory = this.state.memory;
-    const updateMemory = memory += value;
+    const updateMemory = (memory += value);
     this.setState({ memory: updateMemory });
     const getDecimal = this.insertDecimal(updateMemory);
-    this.setState({ result: getDecimal  });
+    this.setState({ result: getDecimal });
   }
 
   handleClick(e) {
     const classList = e.target.classList[0];
-    if (classList === 'icon-tick') {
+    if (classList === "icon-tick") {
       const totals = this.state.totals;
       totals.push(this.state.result);
-      this.setState({ totals, memory: '' });
-      this.setState({ result: 0  });
+      this.setState({ totals, memory: "" });
+      this.setState({ result: 0 });
     }
 
-    if (classList === 'number') {
+    if (classList === "number") {
       const value = e.target.value;
       this.calculate(value);
     }
 
-    if (classList === 'icon-cross') {
-      console.log('no time to code this');
+    if (classList === "icon-cross") {
+      console.log("no time to code this");
     }
   }
 
   render() {
     let total = 0;
-    this.state.totals.forEach((item => {
+    this.state.totals.forEach(item => {
       total += item;
-    }));
+    });
     const amounts = this.state.totals.map((value, index) => (
-      <Item key={index} value={value} />
+      <Item key={index} index={index} value={value} totals={this.state.totals} />
     ));
     const noTotals = this.state.totals.length;
     const calculatorKeys = keys.map(({ value, type }) => (
@@ -75,13 +75,9 @@ class App extends Component {
         </CalculatorWrapper>
         <TotalsWrapper>
           <div className="amounts">
-            {
-              !noTotals ? 'No amounts have been added' : amounts
-            }
+            {!noTotals ? "No amounts have been added" : amounts}
           </div>
-          <div className="total">
-            R {total}
-          </div>
+          <div className="total">R {total}</div>
         </TotalsWrapper>
       </div>
     );

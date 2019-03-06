@@ -35,3 +35,8 @@ input[type="text"]:focus {
   color: #ffffff;
   font-family: monospace;
 }
+
+.removeItem {
+  cursor: pointer;
+  float: right;
+}
